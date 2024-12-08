@@ -26,8 +26,8 @@ Contributions are welcome! Feel free to open issues and pull requests.
 ## Run it locally
 
 ```sh
-virtualenv .venv
-source .venv/bin/activate
+streamlitenv .venv
+conda activate streamlitenv
 pip install -r requirements.txt
 streamlit run main.py
 ```
