@@ -1,2 +1,8 @@
+requests
+flask
 streamlit
-openai
+langchain-ollama
+langchain_core
+streamlit-feedback
+langchain-community
+requests_toolbelt
