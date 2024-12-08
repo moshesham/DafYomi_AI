@@ -29,5 +29,5 @@ Contributions are welcome! Feel free to open issues and pull requests.
 streamlitenv .venv
 conda activate streamlitenv
 pip install -r requirements.txt
-streamlit run main.py
+streamlit run streamlit_app.py
 ```
