@@ -15,7 +15,7 @@ from langchain_core.prompts import ChatPromptTemplate
 
 
 
-CACHE_DIR = "cache"  # Directory to store cached responses
+# CACHE_DIR = "cache"  # Directory to store cached responses
 
 def get_cached_response(daf_name):
     """Retrieves a cached response from a JSON file."""
@@ -35,28 +35,28 @@ def cache_response(daf_name, response):
 
 
 def generate_prom(Tractate_daf="Baba Batra 166"):
-    prompt = f""" **I am studying Talmud Tractate and Daf : {Tractate_daf}.**
+    prompt = f""" **I am studying Talmud Tractate and Daf Y: {Tractate_daf}.**
+        give me a 2 line summary"""
+# **Please provide a comprehensive summary of this Daf, focusing on:**
 
-**Please provide a comprehensive summary of this Daf, focusing on:**
+# 1. **Background Context:** 
+#     * Briefly summarize the key discussions and conclusions from the preceding Daf or pages that directly lead into the current Daf's analysis. This should establish the necessary context for understanding the current page's arguments.
+# 2. **Topics and Subtopics:**
+#     * Clearly outline the main topics and subtopics discussed on the Daf.
+#     * Use a hierarchical structure (e.g., bullet points, numbered lists) to organize the information logically.
+# 3. **Argument Analysis:**
+#     * For each topic/subtopic, concisely explain the different opinions presented, the supporting arguments, and any resolutions or conclusions reached.
+#     * Highlight any key disagreements between different Rabbis or schools of thought.
+# 4. **Key Concepts and Terms:**
+#     * Identify and define any important concepts, terms, or principles introduced or discussed on the Daf.
 
-1. **Background Context:** 
-    * Briefly summarize the key discussions and conclusions from the preceding Daf or pages that directly lead into the current Daf's analysis. This should establish the necessary context for understanding the current page's arguments.
-2. **Topics and Subtopics:**
-    * Clearly outline the main topics and subtopics discussed on the Daf.
-    * Use a hierarchical structure (e.g., bullet points, numbered lists) to organize the information logically.
-3. **Argument Analysis:**
-    * For each topic/subtopic, concisely explain the different opinions presented, the supporting arguments, and any resolutions or conclusions reached.
-    * Highlight any key disagreements between different Rabbis or schools of thought.
-4. **Key Concepts and Terms:**
-    * Identify and define any important concepts, terms, or principles introduced or discussed on the Daf.
+# **My goal is to use this summary to quickly grasp the core arguments and flow of the Daf, enabling efficient analysis and deeper understanding.**
 
-**My goal is to use this summary to quickly grasp the core arguments and flow of the Daf, enabling efficient analysis and deeper understanding.**
+# **Optional additions:**
 
-**Optional additions:**
-
-* **Connections:** If relevant, mention any connections to other areas of Talmud or Jewish law.
-* **Modern Applications:** Briefly discuss any potential modern-day applications or relevance of the discussed topics.
-"""
+# * **Connections:** If relevant, mention any connections to other areas of Talmud or Jewish law.
+# * **Modern Applications:** Briefly discuss any potential modern-day applications or relevance of the discussed topics.
+# """
 
     return prompt
 
@@ -111,14 +111,13 @@ def get_current_daf_name():
 def fetch_daf_content():
     daf_name = get_current_daf_name()
 
-    # Check for cached response
-    cached_response = get_cached_response(daf_name)
-    if cached_response:
-        print(f"Using cached response for {daf_name}")
-        return cached_response
+    # # Check for cached response
+    # cached_response = get_cached_response(daf_name)
+    # if cached_response:
+    #     print(f"Using cached response for {daf_name}")
+    #     return cached_response
 
     prompt = generate_prom(get_current_daf_name())
-    print(prompt)
 
     llm = ChatOllama(
         model="llama3.2",
@@ -138,14 +137,14 @@ def fetch_daf_content():
             'content': prompt,
         },
     ])
-    print(response['message']['content'])
+    # print(response['message']['content'])
 
     # response = requests.post("http://localhost:11434/api/generate", json=data, stream=False)
     # json_data = json.loads(response.text)
     daf_content = response['message']['content']
 
     # Cache the response for future use
-    cache_response(daf_name, daf_content)
+    # cache_response(daf_name, daf_content)
 
     return daf_content
 
